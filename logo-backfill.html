@@ -9,6 +9,9 @@
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0a0a; color: #fff; padding: 24px; padding-bottom: 100px; }
   h1 { font-size: 24px; font-weight: 600; margin-bottom: 4px; }
   .subtitle { color: #888; font-size: 14px; margin-bottom: 24px; }
+  .tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+  .tab { padding: 8px 16px; border-radius: 8px; border: 1px solid #333; background: #141414; color: #aaa; font-size: 14px; cursor: pointer; }
+  .tab.active { background: #fff; color: #000; border-color: #fff; }
   .controls { display: flex; gap: 12px; align-items: center; margin-bottom: 24px; flex-wrap: wrap; }
   .search { flex: 1; min-width: 200px; padding: 10px 16px; border-radius: 8px; border: 1px solid #333; background: #141414; color: #fff; font-size: 14px; outline: none; }
   .search:focus { border-color: #555; }
@@ -26,23 +29,29 @@
   .stat { background: #141414; border: 1px solid #222; border-radius: 8px; padding: 12px 20px; }
   .stat .num { font-size: 28px; font-weight: 700; }
   .stat .label { font-size: 12px; color: #888; }
+  .stat.red .num { color: #ef4444; }
   .fab { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #ef4444; color: white; border: none; padding: 14px 28px; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; display: none; z-index: 100; box-shadow: 0 4px 24px rgba(239,68,68,0.4); }
   .fab:hover { background: #dc2626; }
   .toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%); background: #22c55e; color: #fff; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 500; display: none; z-index: 101; }
+  .reverted-badge { background: #ef4444; color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 4px; position: absolute; top: 8px; left: 8px; }
 </style>
 </head>
 <body>
 <h1>Logo Backfill Review</h1>
-<p class="subtitle">Tap logos to mark for revert + manual extraction. Hit submit when done.</p>
+<p class="subtitle">438 logos processed — March 12, 2026</p>
 <div class="stats">
-  <div class="stat"><div class="num">438</div><div class="label">Total</div></div>
+  <div class="stat"><div class="num">426</div><div class="label">Live</div></div>
+  <div class="stat red"><div class="num">17</div><div class="label">Reverted</div></div>
   <div class="stat"><div class="num" id="selected-count">0</div><div class="label">Marked for revert</div></div>
-  <div class="stat"><div class="num" id="visible-count">438</div><div class="label">Showing</div></div>
+</div>
+<div class="tabs">
+  <div class="tab active" onclick="showTab('live')">Live (426)</div>
+  <div class="tab" onclick="showTab('reverted')">Reverted (17)</div>
 </div>
 <div class="controls">
   <input class="search" type="text" placeholder="Search logos..." oninput="filter(this.value)">
 </div>
-<div class="grid" id="grid">
+<div class="grid" id="grid-live">
   <div class="card" data-slug="abuselpdb" onclick="toggle(this)">
     <div class="check">✕</div>
     <img src="https://logos.composio.dev/api/abuselpdb" alt="abuselpdb" loading="lazy" onerror="this.parentElement.classList.add('error')">
@@ -52,11 +61,6 @@
     <div class="check">✕</div>
     <img src="https://logos.composio.dev/api/accelo" alt="accelo" loading="lazy" onerror="this.parentElement.classList.add('error')">
     <div class="name">accelo</div>
-  </div>
-  <div class="card" data-slug="active_trail" onclick="toggle(this)">
-    <div class="check">✕</div>
-    <img src="https://logos.composio.dev/api/active_trail" alt="active_trail" loading="lazy" onerror="this.parentElement.classList.add('error')">
-    <div class="name">active_trail</div>
   </div>
   <div class="card" data-slug="affinda" onclick="toggle(this)">
     <div class="check">✕</div>
@@ -143,11 +147,6 @@
     <img src="https://logos.composio.dev/api/backendless" alt="backendless" loading="lazy" onerror="this.parentElement.classList.add('error')">
     <div class="name">backendless</div>
   </div>
-  <div class="card" data-slug="bart" onclick="toggle(this)">
-    <div class="check">✕</div>
-    <img src="https://logos.composio.dev/api/bart" alt="bart" loading="lazy" onerror="this.parentElement.classList.add('error')">
-    <div class="name">bart</div>
-  </div>
   <div class="card" data-slug="basecamp" onclick="toggle(this)">
     <div class="check">✕</div>
     <img src="https://logos.composio.dev/api/basecamp" alt="basecamp" loading="lazy" onerror="this.parentElement.classList.add('error')">
@@ -193,11 +192,6 @@
     <img src="https://logos.composio.dev/api/bigmailer" alt="bigmailer" loading="lazy" onerror="this.parentElement.classList.add('error')">
     <div class="name">bigmailer</div>
   </div>
-  <div class="card" data-slug="bitquery" onclick="toggle(this)">
-    <div class="check">✕</div>
-    <img src="https://logos.composio.dev/api/bitquery" alt="bitquery" loading="lazy" onerror="this.parentElement.classList.add('error')">
-    <div class="name">bitquery</div>
-  </div>
   <div class="card" data-slug="blackbaud" onclick="toggle(this)">
     <div class="check">✕</div>
     <img src="https://logos.composio.dev/api/blackbaud" alt="blackbaud" loading="lazy" onerror="this.parentElement.classList.add('error')">
@@ -237,11 +231,6 @@
     <div class="check">✕</div>
     <img src="https://logos.composio.dev/api/botsonic" alt="botsonic" loading="lazy" onerror="this.parentElement.classList.add('error')">
     <div class="name">botsonic</div>
-  </div>
-  <div class="card" data-slug="botstar" onclick="toggle(this)">
-    <div class="check">✕</div>
-    <img src="https://logos.composio.dev/api/botstar" alt="botstar" loading="lazy" onerror="this.parentElement.classList.add('error')">
-    <div class="name">botstar</div>
   </div>
   <div class="card" data-slug="bouncer" onclick="toggle(this)">
     <div class="check">✕</div>
@@ -703,11 +692,6 @@
     <img src="https://logos.composio.dev/api/eversign" alt="eversign" loading="lazy" onerror="this.parentElement.classList.add('error')">
     <div class="name">eversign</div>
   </div>
-  <div class="card" data-slug="excel" onclick="toggle(this)">
-    <div class="check">✕</div>
-    <img src="https://logos.composio.dev/api/excel" alt="excel" loading="lazy" onerror="this.parentElement.classList.add('error')">
-    <div class="name">excel</div>
-  </div>
   <div class="card" data-slug="expensify" onclick="toggle(this)">
     <div class="check">✕</div>
     <img src="https://logos.composio.dev/api/expensify" alt="expensify" loading="lazy" onerror="this.parentElement.classList.add('error')">
@@ -1023,11 +1007,6 @@
     <img src="https://logos.composio.dev/api/jumpcloud" alt="jumpcloud" loading="lazy" onerror="this.parentElement.classList.add('error')">
     <div class="name">jumpcloud</div>
   </div>
-  <div class="card" data-slug="kadoa" onclick="toggle(this)">
-    <div class="check">✕</div>
-    <img src="https://logos.composio.dev/api/kadoa" alt="kadoa" loading="lazy" onerror="this.parentElement.classList.add('error')">
-    <div class="name">kadoa</div>
-  </div>
   <div class="card" data-slug="kaggle" onclick="toggle(this)">
     <div class="check">✕</div>
     <img src="https://logos.composio.dev/api/kaggle" alt="kaggle" loading="lazy" onerror="this.parentElement.classList.add('error')">
@@ -1138,30 +1117,10 @@
     <img src="https://logos.composio.dev/api/logo_dev" alt="logo_dev" loading="lazy" onerror="this.parentElement.classList.add('error')">
     <div class="name">logo_dev</div>
   </div>
-  <div class="card" data-slug="loyverse" onclick="toggle(this)">
-    <div class="check">✕</div>
-    <img src="https://logos.composio.dev/api/loyverse" alt="loyverse" loading="lazy" onerror="this.parentElement.classList.add('error')">
-    <div class="name">loyverse</div>
-  </div>
-  <div class="card" data-slug="magnetic" onclick="toggle(this)">
-    <div class="check">✕</div>
-    <img src="https://logos.composio.dev/api/magnetic" alt="magnetic" loading="lazy" onerror="this.parentElement.classList.add('error')">
-    <div class="name">magnetic</div>
-  </div>
-  <div class="card" data-slug="mailbluster" onclick="toggle(this)">
-    <div class="check">✕</div>
-    <img src="https://logos.composio.dev/api/mailbluster" alt="mailbluster" loading="lazy" onerror="this.parentElement.classList.add('error')">
-    <div class="name">mailbluster</div>
-  </div>
   <div class="card" data-slug="mailcoach" onclick="toggle(this)">
     <div class="check">✕</div>
     <img src="https://logos.composio.dev/api/mailcoach" alt="mailcoach" loading="lazy" onerror="this.parentElement.classList.add('error')">
     <div class="name">mailcoach</div>
-  </div>
-  <div class="card" data-slug="mailercloud" onclick="toggle(this)">
-    <div class="check">✕</div>
-    <img src="https://logos.composio.dev/api/mailercloud" alt="mailercloud" loading="lazy" onerror="this.parentElement.classList.add('error')">
-    <div class="name">mailercloud</div>
   </div>
   <div class="card" data-slug="mailersend" onclick="toggle(this)">
     <div class="check">✕</div>
@@ -1648,11 +1607,6 @@
     <img src="https://logos.composio.dev/api/saucelabs" alt="saucelabs" loading="lazy" onerror="this.parentElement.classList.add('error')">
     <div class="name">saucelabs</div>
   </div>
-  <div class="card" data-slug="scale_ai" onclick="toggle(this)">
-    <div class="check">✕</div>
-    <img src="https://logos.composio.dev/api/scale_ai" alt="scale_ai" loading="lazy" onerror="this.parentElement.classList.add('error')">
-    <div class="name">scale_ai</div>
-  </div>
   <div class="card" data-slug="scrape_do" onclick="toggle(this)">
     <div class="check">✕</div>
     <img src="https://logos.composio.dev/api/scrape_do" alt="scrape_do" loading="lazy" onerror="this.parentElement.classList.add('error')">
@@ -1968,11 +1922,6 @@
     <img src="https://logos.composio.dev/api/timekit" alt="timekit" loading="lazy" onerror="this.parentElement.classList.add('error')">
     <div class="name">timekit</div>
   </div>
-  <div class="card" data-slug="timelinesai" onclick="toggle(this)">
-    <div class="check">✕</div>
-    <img src="https://logos.composio.dev/api/timelinesai" alt="timelinesai" loading="lazy" onerror="this.parentElement.classList.add('error')">
-    <div class="name">timelinesai</div>
-  </div>
   <div class="card" data-slug="timelink" onclick="toggle(this)">
     <div class="check">✕</div>
     <img src="https://logos.composio.dev/api/timelink" alt="timelink" loading="lazy" onerror="this.parentElement.classList.add('error')">
@@ -2234,10 +2183,106 @@
     <div class="name">zyte_api</div>
   </div>
 </div>
+<div class="grid hidden" id="grid-reverted">
+  <div class="card" data-slug="active_trail">
+    <span class="reverted-badge">reverted</span>
+    <img src="https://logos.composio.dev/api/active_trail" alt="active_trail" loading="lazy" onerror="this.parentElement.classList.add('error')">
+    <div class="name">active_trail</div>
+  </div>
+  <div class="card" data-slug="airbyte">
+    <span class="reverted-badge">reverted</span>
+    <img src="https://logos.composio.dev/api/airbyte" alt="airbyte" loading="lazy" onerror="this.parentElement.classList.add('error')">
+    <div class="name">airbyte</div>
+  </div>
+  <div class="card" data-slug="bart">
+    <span class="reverted-badge">reverted</span>
+    <img src="https://logos.composio.dev/api/bart" alt="bart" loading="lazy" onerror="this.parentElement.classList.add('error')">
+    <div class="name">bart</div>
+  </div>
+  <div class="card" data-slug="bilflo">
+    <span class="reverted-badge">reverted</span>
+    <img src="https://logos.composio.dev/api/bilflo" alt="bilflo" loading="lazy" onerror="this.parentElement.classList.add('error')">
+    <div class="name">bilflo</div>
+  </div>
+  <div class="card" data-slug="bitquery">
+    <span class="reverted-badge">reverted</span>
+    <img src="https://logos.composio.dev/api/bitquery" alt="bitquery" loading="lazy" onerror="this.parentElement.classList.add('error')">
+    <div class="name">bitquery</div>
+  </div>
+  <div class="card" data-slug="botstar">
+    <span class="reverted-badge">reverted</span>
+    <img src="https://logos.composio.dev/api/botstar" alt="botstar" loading="lazy" onerror="this.parentElement.classList.add('error')">
+    <div class="name">botstar</div>
+  </div>
+  <div class="card" data-slug="clerk">
+    <span class="reverted-badge">reverted</span>
+    <img src="https://logos.composio.dev/api/clerk" alt="clerk" loading="lazy" onerror="this.parentElement.classList.add('error')">
+    <div class="name">clerk</div>
+  </div>
+  <div class="card" data-slug="cliento">
+    <span class="reverted-badge">reverted</span>
+    <img src="https://logos.composio.dev/api/cliento" alt="cliento" loading="lazy" onerror="this.parentElement.classList.add('error')">
+    <div class="name">cliento</div>
+  </div>
+  <div class="card" data-slug="dacast">
+    <span class="reverted-badge">reverted</span>
+    <img src="https://logos.composio.dev/api/dacast" alt="dacast" loading="lazy" onerror="this.parentElement.classList.add('error')">
+    <div class="name">dacast</div>
+  </div>
+  <div class="card" data-slug="excel">
+    <span class="reverted-badge">reverted</span>
+    <img src="https://logos.composio.dev/api/excel" alt="excel" loading="lazy" onerror="this.parentElement.classList.add('error')">
+    <div class="name">excel</div>
+  </div>
+  <div class="card" data-slug="kadoa">
+    <span class="reverted-badge">reverted</span>
+    <img src="https://logos.composio.dev/api/kadoa" alt="kadoa" loading="lazy" onerror="this.parentElement.classList.add('error')">
+    <div class="name">kadoa</div>
+  </div>
+  <div class="card" data-slug="loyverse">
+    <span class="reverted-badge">reverted</span>
+    <img src="https://logos.composio.dev/api/loyverse" alt="loyverse" loading="lazy" onerror="this.parentElement.classList.add('error')">
+    <div class="name">loyverse</div>
+  </div>
+  <div class="card" data-slug="magnetic">
+    <span class="reverted-badge">reverted</span>
+    <img src="https://logos.composio.dev/api/magnetic" alt="magnetic" loading="lazy" onerror="this.parentElement.classList.add('error')">
+    <div class="name">magnetic</div>
+  </div>
+  <div class="card" data-slug="mailbluster">
+    <span class="reverted-badge">reverted</span>
+    <img src="https://logos.composio.dev/api/mailbluster" alt="mailbluster" loading="lazy" onerror="this.parentElement.classList.add('error')">
+    <div class="name">mailbluster</div>
+  </div>
+  <div class="card" data-slug="mailercloud">
+    <span class="reverted-badge">reverted</span>
+    <img src="https://logos.composio.dev/api/mailercloud" alt="mailercloud" loading="lazy" onerror="this.parentElement.classList.add('error')">
+    <div class="name">mailercloud</div>
+  </div>
+  <div class="card" data-slug="scale_ai">
+    <span class="reverted-badge">reverted</span>
+    <img src="https://logos.composio.dev/api/scale_ai" alt="scale_ai" loading="lazy" onerror="this.parentElement.classList.add('error')">
+    <div class="name">scale_ai</div>
+  </div>
+  <div class="card" data-slug="timelinesai">
+    <span class="reverted-badge">reverted</span>
+    <img src="https://logos.composio.dev/api/timelinesai" alt="timelinesai" loading="lazy" onerror="this.parentElement.classList.add('error')">
+    <div class="name">timelinesai</div>
+  </div>
+</div>
 <button class="fab" id="fab" onclick="submit()">Submit <span id="fab-count"></span> for revert</button>
-<div class="toast" id="toast">Copied to clipboard!</div>
+<div class="toast" id="toast"></div>
 <script>
 const selected = new Set();
+let currentTab = 'live';
+
+function showTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('grid-live').classList.toggle('hidden', tab !== 'live');
+  document.getElementById('grid-reverted').classList.toggle('hidden', tab !== 'reverted');
+}
 
 function toggle(card) {
   const slug = card.dataset.slug;
@@ -2255,18 +2300,15 @@ function updateUI() {
   document.getElementById('selected-count').textContent = selected.size;
   const fab = document.getElementById('fab');
   fab.style.display = selected.size > 0 ? 'block' : 'none';
-  document.getElementById('fab-count').textContent = `(${selected.size})`;
+  document.getElementById('fab-count').textContent = '(' + selected.size + ')';
 }
 
 function filter(q) {
   q = q.toLowerCase();
-  let visible = 0;
-  document.querySelectorAll('.card').forEach(c => {
-    const match = c.dataset.slug.includes(q);
-    c.classList.toggle('hidden', !match);
-    if (match) visible++;
+  const grid = currentTab === 'live' ? 'grid-live' : 'grid-reverted';
+  document.querySelectorAll('#' + grid + ' .card').forEach(c => {
+    c.classList.toggle('hidden', !c.dataset.slug.includes(q));
   });
-  document.getElementById('visible-count').textContent = visible;
 }
 
 function submit() {
@@ -2275,7 +2317,7 @@ function submit() {
   navigator.clipboard.writeText(msg).then(() => {
     const toast = document.getElementById('toast');
     toast.style.display = 'block';
-    toast.textContent = `Copied ${slugs.length} slugs! Paste to @devos-malay on Telegram.`;
+    toast.textContent = 'Copied ' + slugs.length + ' slugs! Paste to @devos-malay on Telegram.';
     setTimeout(() => toast.style.display = 'none', 3000);
   });
 }
