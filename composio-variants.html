@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Composio OG Variants</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 40px; color: #fff; }
+  h1 { font-size: 20px; margin-bottom: 32px; color: #a3a3a3; }
+  .card-label { font-size: 13px; color: #737373; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .card { margin-bottom: 48px; }
+  .og { width: 1200px; height: 630px; position: relative; overflow: hidden; border-radius: 4px; }
+  
+  /* Shared layout */
+  .og .logo { position: absolute; top: 48px; left: 56px; width: 56px; height: 56px; }
+  .og .copy { position: absolute; top: 40px; right: 56px; text-align: right; font-size: 52px; font-weight: 600; line-height: 1.2; letter-spacing: -0.02em; max-width: 720px; }
+  .og .glitch-area { position: absolute; bottom: 0; left: 0; right: 0; height: 340px; overflow: hidden; }
+  .og .bar { position: absolute; opacity: 0.85; }
+
+  /* Composio logo SVG as inline - black version */
+  .logo-black { filter: none; }
+  .logo-white { filter: invert(1); }
+
+  /* Variant 1: Warm sunset — coral/orange/amber */
+  .v1 { background: #FFFAF5; }
+  .v1 .copy { color: #1a1a1a; }
+  .v1 .b1 { background: #FF6B35; left: -5%; width: 60%; height: 45%; bottom: 10%; }
+  .v1 .b2 { background: #FFB347; left: 25%; width: 55%; height: 35%; bottom: 25%; opacity: 0.7; }
+  .v1 .b3 { background: #FF4444; left: 40%; width: 50%; height: 50%; bottom: -5%; }
+  .v1 .b4 { background: #FFDD57; left: 10%; width: 40%; height: 25%; bottom: 40%; opacity: 0.6; }
+  .v1 .b5 { background: #FF8C42; left: 55%; width: 45%; height: 30%; bottom: 15%; opacity: 0.75; }
+  .v1 .b6 { background: #FFF0DB; left: 15%; width: 35%; height: 20%; bottom: 55%; opacity: 0.5; }
+
+  /* Variant 2: Deep purple/violet/indigo */
+  .v2 { background: #FAF8FF; }
+  .v2 .copy { color: #1a1a1a; }
+  .v2 .b1 { background: #7C3AED; left: -5%; width: 60%; height: 45%; bottom: 10%; }
+  .v2 .b2 { background: #A78BFA; left: 25%; width: 55%; height: 35%; bottom: 25%; opacity: 0.7; }
+  .v2 .b3 { background: #4338CA; left: 40%; width: 50%; height: 50%; bottom: -5%; }
+  .v2 .b4 { background: #C4B5FD; left: 10%; width: 40%; height: 25%; bottom: 40%; opacity: 0.6; }
+  .v2 .b5 { background: #6D28D9; left: 55%; width: 45%; height: 30%; bottom: 15%; opacity: 0.75; }
+  .v2 .b6 { background: #EDE9FE; left: 15%; width: 35%; height: 20%; bottom: 55%; opacity: 0.5; }
+
+  /* Variant 3: Emerald/teal/green */
+  .v3 { background: #F5FFFA; }
+  .v3 .copy { color: #1a1a1a; }
+  .v3 .b1 { background: #10B981; left: -5%; width: 60%; height: 45%; bottom: 10%; }
+  .v3 .b2 { background: #6EE7B7; left: 25%; width: 55%; height: 35%; bottom: 25%; opacity: 0.7; }
+  .v3 .b3 { background: #047857; left: 40%; width: 50%; height: 50%; bottom: -5%; }
+  .v3 .b4 { background: #A7F3D0; left: 10%; width: 40%; height: 25%; bottom: 40%; opacity: 0.6; }
+  .v3 .b5 { background: #059669; left: 55%; width: 45%; height: 30%; bottom: 15%; opacity: 0.75; }
+  .v3 .b6 { background: #D1FAE5; left: 15%; width: 35%; height: 20%; bottom: 55%; opacity: 0.5; }
+</style>
+</head>
+<body>
+
+<h1>Composio OG Image — 3 Copy + Color Variants</h1>
+
+<!-- VARIANT 1: Warm -->
+<div class="card">
+  <div class="card-label">Variant 1 — Warm Sunset</div>
+  <div class="og v1">
+    <svg class="logo logo-black" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <rect x="8" y="8" width="20" height="20" rx="3" fill="#1a1a1a"/>
+      <rect x="14" y="20" width="20" height="20" rx="3" fill="#1a1a1a"/>
+      <rect x="20" y="32" width="20" height="20" rx="3" fill="#1a1a1a"/>
+    </svg>
+    <div class="copy">Agents think.<br>We do the heavy lifting.</div>
+    <div class="glitch-area">
+      <div class="bar b1"></div>
+      <div class="bar b2"></div>
+      <div class="bar b3"></div>
+      <div class="bar b4"></div>
+      <div class="bar b5"></div>
+      <div class="bar b6"></div>
+    </div>
+  </div>
+</div>
+
+<!-- VARIANT 2: Purple -->
+<div class="card">
+  <div class="card-label">Variant 2 — Electric Violet</div>
+  <div class="og v2">
+    <svg class="logo logo-black" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <rect x="8" y="8" width="20" height="20" rx="3" fill="#1a1a1a"/>
+      <rect x="14" y="20" width="20" height="20" rx="3" fill="#1a1a1a"/>
+      <rect x="20" y="32" width="20" height="20" rx="3" fill="#1a1a1a"/>
+    </svg>
+    <div class="copy">Your agent calls the shots.<br>We make them happen.</div>
+    <div class="glitch-area">
+      <div class="bar b1"></div>
+      <div class="bar b2"></div>
+      <div class="bar b3"></div>
+      <div class="bar b4"></div>
+      <div class="bar b5"></div>
+      <div class="bar b6"></div>
+    </div>
+  </div>
+</div>
+
+<!-- VARIANT 3: Green -->
+<div class="card">
+  <div class="card-label">Variant 3 — Emerald</div>
+  <div class="og v3">
+    <svg class="logo logo-black" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <rect x="8" y="8" width="20" height="20" rx="3" fill="#1a1a1a"/>
+      <rect x="14" y="20" width="20" height="20" rx="3" fill="#1a1a1a"/>
+      <rect x="20" y="32" width="20" height="20" rx="3" fill="#1a1a1a"/>
+    </svg>
+    <div class="copy">Agents own the logic.<br>We own the integrations.</div>
+    <div class="glitch-area">
+      <div class="bar b1"></div>
+      <div class="bar b2"></div>
+      <div class="bar b3"></div>
+      <div class="bar b4"></div>
+      <div class="bar b5"></div>
+      <div class="bar b6"></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
